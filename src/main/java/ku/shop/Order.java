@@ -1,5 +1,6 @@
 package ku.shop;
 
+import javax.naming.InsufficientResourcesException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,10 @@ public class Order {
         this.date = LocalDateTime.now();
     }
 
-    public void addItem(Product prod, int quantity) {
+    public void addItem(Product prod, int quantity) throws InsufficientResourcesException {
+        if (prod.getStock() < quantity) {
+            throw new InsufficientResourcesException();
+        }
         items.add(new OrderItem(prod, quantity));
         prod.cutStock(quantity);
     }

@@ -1,8 +1,11 @@
 package ku.shop;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import javax.naming.InsufficientResourcesException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +26,7 @@ public class BuyStepdefs {
     }
 
     @When("I buy {string} with quantity {int}")
-    public void i_buy_with_quantity(String name, int quantity) {
+    public void i_buy_with_quantity(String name, int quantity) throws InsufficientResourcesException {
         Product prod = catalog.getProduct(name);
         order.addItem(prod, quantity);
     }
@@ -31,6 +34,11 @@ public class BuyStepdefs {
     @Then("total should be {float}")
     public void total_should_be(double total) {
         assertEquals(total, order.getTotal());
+    }
+
+    @And("a product {string} with a stock of {int} exists")
+    public void a_product_exists_after_purchasing(String name, int stock) {
+        assertEquals(catalog.getProduct(name).getStock(), stock);
     }
 }
 
