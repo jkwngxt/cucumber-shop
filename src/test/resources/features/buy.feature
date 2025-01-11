@@ -35,3 +35,7 @@ Scenario: Check stock after purchasing
     And a product "Bread" with a stock of 3 exists
     And a product "Jam" with a stock of 9 exists
     And a product "Milk" with a stock of 12 exists
+
+Scenario: Out of stock
+    When I buy "Bread" with quantity 6
+    Then an exception "InsufficientResourcesException" should be thrown
