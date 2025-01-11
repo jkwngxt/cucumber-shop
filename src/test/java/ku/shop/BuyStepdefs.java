@@ -44,12 +44,12 @@ public class BuyStepdefs {
         assertEquals(total, order.getTotal());
     }
 
-    @And("a product {string} with a stock of {int} exists")
+    @Then("a product {string} with a stock of {int} exists")
     public void a_product_exists_after_purchasing(String name, int stock) {
         assertEquals(catalog.getProduct(name).getStock(), stock);
     }
 
-    @And("an exception {string} should be thrown")
+    @Then("an exception {string} should be thrown")
     public void InsufficientResourcesException_product(String exceptionName) {
         assertEquals(exceptionName, exception.getClass().getSimpleName());
     }
